@@ -32,19 +32,35 @@ This project relies on a KISS TNC to mediate communication between the VHF radio
 sudo apt-get install git -y
 git clone git@github.com:ThreeSixes/aprs-pi.git
 cd aprs-pi
+```
+- Configure the .env file as specified in the configuration section.
+- Build and start the containers:
+```
 docker-compose up -d --build
 ```
 - Wait for this script to finish. Building takes a while.
-- Run `docker container ls`. You should see `` and `` running.
-- You're done installing. These containers will automatically restart on boot.
+- Run `docker container ls`. You should see two containers named `aprs-pi_aprs-bot_1` and `aprs-pi_tnc-server_1` running.
+- You're done installing. These containers will automatically start on boot assuming you've configured Docker to start on boot.
 
 ## Configuration
+The primary source of configuration values for the application is the `.env` file wich passes environment variables to `docker-compose` that define the applications' behavior.
 
-## Running the project
+### Configuration process
+- If you haven't already copy the `dotenv.dist` file in the repository to `.env`. These environment variables serve to configure the containers.
+  * Edit the `.env` file to suit your needs. The parameter you'll most likely want to change is `MQTT_SERVER`. This should be the address of your MQTT server. You might also need to change `TNC_BAUD` and `TNC_SERIAL` to match your KISS TNC's configuration.
+- In the event you're just re-configuring the containers run `docker-compose down -d` and the n `docker-compose up -d` up to apply your new configuration.
+
+## Updating aprs-pi
+In order to update the version of this software running on your Raspberry Pi run the following commands inside the `aprs-pi` repo.
+```
+git pull
+docker-compose down
+docker-compose up -d --build
+```
 
 ## Known issues
 * Transmit functionality from the message bus is still under development.
-* We use a pre-compiled `tnc-server` binary because compiling the Go application fails in Alpine due to build chain issues.
+* We use a pre-compiled `tnc-server` binary because compiling the Go application fails in Alpine due to build chain issues. I will attempt to get building from source working again.
 
 ## Acknowledgements
 * Bob Bruninga, WB4APR for creating the [APRS protocol](http://www.aprs.org)
