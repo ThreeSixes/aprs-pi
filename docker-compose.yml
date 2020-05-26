@@ -1,0 +1,26 @@
+version: "3"
+services:
+    tnc-server:
+        build: dockerized-tnc-server/
+        image: tnc-server:latest
+        restart: unless-stopped
+        expose:
+            - 0.0.0.0:${TNC_LISTEN_PORT}/TCP
+        devices:
+            - ${TNC_SERIAL}:/dev/ttyTNC0
+        environment:
+            - BAUDRATE ${TNC_BAUD}
+            - LISTEN_SPEC 0.0.0.0:${TNC_LISTEN_PORT}
+
+    aprs-bot:
+        build: aprs-bot/
+        image: aprs-bot:latest
+        restart: unless-stopped
+        environment:
+            - DEBUG
+            - KISS_CONN_TYPE="tcp"
+            - KISS_HOST
+            - KISS_PORT
+            - MQTT_TOPIC_PREFIX
+            - MQTT_PORT
+            - MQTT_SERVER

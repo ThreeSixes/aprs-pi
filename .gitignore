@@ -1,0 +1,6 @@
+# Python bits
+**/__pycache__
+**/*.pyc
+
+# Don't package live docker-compose configs
+.env

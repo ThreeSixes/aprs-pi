@@ -1,0 +1,14 @@
+version: "3"
+services:
+    aprs-bot:
+        build: .
+        image: aprs-bot:latest
+        restart: unless-stopped
+        environment:
+            - DEBUG
+            - KISS_CONN_TYPE="tcp"
+            - KISS_HOST
+            - KISS_PORT
+            - MQTT_TOPIC_PREFIX
+            - MQTT_PORT
+            - MQTT_SERVER
