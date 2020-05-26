@@ -4,7 +4,8 @@ This project is set up to provide network server and message bus access to APRS 
 originating from a or destined to a KISS TNC. This project also allows client applications such as APRSDroid to connect to the KISS raw port over the network. It's designed to share the radio with any client application that supports KISS over TCP.
 
 ## Prerequisites
-- An Internet connection (required only for the installation process)
+- An Internet connection
+  * Notes: An Internet connection is only required for installation and updates. Thi should function without an Internet connection once installed.
 - Appropriate radio license (Ham radio Technician or better in the US)
 - VHF radio with (must be able to use it as a KISS TNC)
   - Tested with: Kenwood TM-D710, Kenwood TM-V71, Yaesu FT-991A using the 6-pin data port
