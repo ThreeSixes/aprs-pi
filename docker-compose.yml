@@ -5,14 +5,13 @@ services:
         image: tnc-server:latest
         restart: unless-stopped
         expose:
-            - ${TNC_LISTEN_PORT}/tcp
+            - 6700/tcp
         ports:
-            - ${TNC_LISTEN_PORT}:${TNC_LISTEN_PORT}
+            - ${TNC_LISTEN_PORT}:6700
         devices:
             - ${TNC_SERIAL}:/dev/ttyTNC0
         environment:
             - BAUDRATE=${TNC_BAUD}
-            - LISTEN_SPEC=0.0.0.0:${TNC_LISTEN_PORT}
 
     aprs-bot:
         build: aprs-bot/
