@@ -1,7 +1,7 @@
 # aprs-pi
 ## Background
 This project is set up to provide network server and message bus access to APRS messages 
-originating from a or destined to a KISS TNC. This project also allows client applications such as APRSDroid to connect to the KISS raw port over the network. It's designed to share the radio with any client application that supports KISS over TCP.
+originating from a or destined to a KISS TNC. This project also allows client applications such as APRSDroid to connect to the KISS raw port over the network. It's designed to share the radio with any client application that supports KISS over TCP, and to allow applications that can leverage MQTT to send and recieve APRS messages.
 
 ## Prerequisites
 - An Internet connection
@@ -62,6 +62,11 @@ docker-compose up -d --build
 ## Known issues
 * Transmit functionality from the message bus is still under development.
 * We use a pre-compiled `tnc-server` binary because compiling the Go application fails in Alpine due to build chain issues. I will attempt to get building from source working again.
+
+## Application notes
+* The KISS TNC server port will be exposed on your Raspberry Pi as `6700` by default, or whatever you set `TNC_LISTEN_PORT` to in the `.env` file. The containers inside the Docker network still use the default TCP `6700`.
+* The default MQTT topic APRS messages are recieved on is `aprs/rx`. Messages will be transmitted from `aprs/tx`. If you adjust the `MQTT_TOPIC_PREFIX` in the `.env` just replace `aprs` with whatever you topic prefix you set. The `rx` and `tx` endpoints will be unchanged.
+* An MQTT server such as Mosquitto can be run on the Raspberry Pi along with this application. I didn't include an MQTT server in the `docker-compose.yml` because I already have one running on my network. I did include an alternative docker-compose and dotenv dist file named `docker-compose-mosquitto.yml` and `dotenv-mosquitto.dist` which will also fire up a MQTT server on the Raspberry Pi. The `dotenv-mosquitto.dist` file should be copied to `.env` and customized as-needed. To use the Docker Compose file that provides the Mosquitto MQTT server just add `-f docker-compose-mosquitto.yml` to the `docker-compose up` command you're using to start the stack. When enabled Mosquitto exposes the `MQTT_SERVER_PORT` as defined in the `.env` file on the Raspberry Pi for MQTT clients to use.
 
 ## Acknowledgements
 * Bob Bruninga, WB4APR for creating the [APRS protocol](http://www.aprs.org)

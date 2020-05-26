@@ -19,6 +19,7 @@ services:
         restart: unless-stopped
         depends_on:
             - tnc-server
+            - mosquitto
         environment:
             - APRS_BOT_ENABLED
             - DEBUG
@@ -28,3 +29,11 @@ services:
             - MQTT_TOPIC_PREFIX
             - MQTT_PORT
             - MQTT_SERVER
+
+    mosquitto:
+        image: eclipse-mosquitto:latest
+        restart: unless-stopped
+        expose:
+            - 1883/tcp
+        ports:
+            - 1883:1883
