@@ -5,20 +5,23 @@ services:
         image: tnc-server:latest
         restart: unless-stopped
         expose:
-            - 0.0.0.0:${TNC_LISTEN_PORT}/TCP
+            - ${TNC_LISTEN_PORT}/tcp
+        ports:
+            - ${TNC_LISTEN_PORT}:${TNC_LISTEN_PORT}
         devices:
             - ${TNC_SERIAL}:/dev/ttyTNC0
         environment:
-            - BAUDRATE ${TNC_BAUD}
-            - LISTEN_SPEC 0.0.0.0:${TNC_LISTEN_PORT}
+            - BAUDRATE=${TNC_BAUD}
+            - LISTEN_SPEC=0.0.0.0:${TNC_LISTEN_PORT}
 
     aprs-bot:
         build: aprs-bot/
         image: aprs-bot:latest
         restart: unless-stopped
         environment:
+            - APRS_BOT_ENABLED
             - DEBUG
-            - KISS_CONN_TYPE="tcp"
+            - KISS_CONN_TYPE
             - KISS_HOST
             - KISS_PORT
             - MQTT_TOPIC_PREFIX

@@ -5,6 +5,7 @@ services:
         image: aprs-bot:latest
         restart: unless-stopped
         environment:
+            - APRS_BOT_ENABLED
             - DEBUG
             - KISS_CONN_TYPE="tcp"
             - KISS_HOST

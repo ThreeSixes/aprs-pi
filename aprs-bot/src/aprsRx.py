@@ -122,6 +122,9 @@ class aprsRx:
             self.__k = kiss.SerialKISS(
                 self.__connection_spec['serial_port'],
                 self.__connection_spec['baud'])
+        
+        else:
+            raise ValueError("Couldn't determine type of KISS connection to use.")
 
         # Connect up.
         self.__k.start()
