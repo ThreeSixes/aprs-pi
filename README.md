@@ -5,7 +5,7 @@ originating from a or destined to a KISS TNC. This project also allows client ap
 
 ## Prerequisites
 - An Internet connection
-  * Notes: An Internet connection is only required for installation and updates. This should function without an Internet connection once installed.
+  * Note: An Internet connection is only required for installation and updates. This should function without an Internet connection once installed.
 - Appropriate radio license (Ham radio Technician class or higher in the US)
 - VHF radio with (must be able to use it as a KISS TNC)
   - Tested with: `Kenwood TM-D710`, `Kenwood TM-V71`, and `Yaesu FT-991A` using the 6-pin data port
