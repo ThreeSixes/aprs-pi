@@ -4,6 +4,11 @@ services:
         build: dockerized-tnc-server/
         image: tnc-server:latest
         restart: unless-stopped
+        logging:
+            driver: "json-file"
+            options:
+                max-file: 5
+                max-size: 10m
         expose:
             - 6700/tcp
         ports:
@@ -17,6 +22,11 @@ services:
         build: aprs-bot/
         image: aprs-bot:latest
         restart: unless-stopped
+        logging:
+            driver: "json-file"
+            options:
+                max-file: 5
+                max-size: 10m
         depends_on:
             - tnc-server
         environment:
