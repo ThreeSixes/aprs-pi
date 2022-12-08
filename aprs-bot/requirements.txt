@@ -2,7 +2,7 @@
 aprs==7.0.0
 aprslib==0.6.47
 bitarray==1.2.1
-certifi==2019.11.28
+certifi==2022.12.7
 chardet==3.0.4
 hexdump==3.3
 idna==2.9
